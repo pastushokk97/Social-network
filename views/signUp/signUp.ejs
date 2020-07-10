@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/views/signUp/signUp.css" type="text/css">
+    <link rel="stylesheet" href="/views/header.css" type="text/css">
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="logo"><h1>My Website</h1></a>
+    <p>A website created by me.</p>
+  </div>
+  <div class="navbar">
+    <a href="/">Home</a>
+    <!-- <a href="">Link</a> -->
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact us</a>
+    <a href="/login" class="right">Log In</a>
+    <a href="/sign-up" class="right">Sign Up</a>
+  </div>
+  <div class="navbarMobile">
+    <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
+    <a href="/" class="left">Home</a>
+    <a href="/about" class="left">About us</a>
+    <a href="/contact" class="left">Contact us</a>
+    <a href="/login" class="left">Log In</a>
+    <a href="/sign-up" class="left">Sign Up</a>
+  </div>
+    <p class="new">Sign Up</p>
+        <form action="/sign-up" method="POST" class="form">
+            <div name = "attention" class="attentionToPassword" hidden>Passwords don't match</div>
+            <div name = "attention" class="attention" hidden>All fields must be completed</div>
+            <p class="inscription">Username</p>
+            <input type="text" name="userName" placeholder="Name" class="name" >
+            <p class="inscription">Email</p>
+            <input type="text" name="userEmail" placeholder="Email" class="email"/>
+            <p class="inscription">Password</p>
+            <input type="password" name="userPassword"  placeholder="Password" class="password" />
+            <img class = "showPassword" src="/image/see.png" alt="" role ="button" onclick="changeType('.password','.showPassword')">
+            <p class="inscription">Repeat Password</p>
+            <input type="password" name="userRepeatPassword"  placeholder="Repeat Password" class="password_repeat"/>
+            <img class ="repeatShowPassword" src="/image/see.png" alt="" role ="button" onclick="changeType('.password_repeat','.repeatShowPassword')">
+            <br><br>
+            <input type="submit" value="Create account" class="create"/>
+        </form>
+<script src="/views/signUp/signUp.js"></script>
+</body>
+</html>

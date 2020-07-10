@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/views/header.css" type="text/css">
+<link rel="stylesheet" href="/views/contact/contact.css" type="text/css">
+<title>Contact</title>
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="logo"><h1>My Website</h1></a>
+    <p>A website created by me.</p>
+  </div>
+  <div class="navbar">
+    <a href="/">Home</a>
+    <!-- <a href="">Link</a> -->
+    <a href="/about">About us</a>
+    <a href="/contact">Contact us</a>
+    <a href="/login" class="right">Log In</a>
+    <a href="/sign-up" class="right">Sign Up</a>
+  </div>
+  <div class="navbarMobile">
+    <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
+    <a href="/" class="left">Home</a>
+    <!-- <a href="">Link</a> -->
+    <a href="/about" class="left">About us</a>
+    <a href="/contact" class="left">Contact us</a>
+    <a href="/login" class="left">Log In</a>
+    <a href="/sign-up" class="left">Sign Up</a>
+  </div>
+<div class="container">
+  <div style="text-align:center">
+    <h2>Contact Us</h2>
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+  </div>
+  <div class="row">
+    <div class="column">
+      <img src="/image/kharkiv.jpg" style="width:100%">
+    </div>
+    <div class="column">
+      <form action="/contact" method="POST">
+        <div class="warning" hidden>
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <strong>Warning!</strong> You have to fill all the fileds.
+        </div>
+        <div class="done" hidden>
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+          <strong>Thank you!</strong> Your message has been sent.
+        </div>
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="Your email..">
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject..">
+        <label for="message">Text us here</label>
+        <textarea id="text" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+        <input type="submit" value="Submit" class="submit">
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/views/js/contact.js"></script>
+</body>
+</html>

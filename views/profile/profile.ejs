@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Profile: <%= data[0].name %></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/views/stylesheet/profile.css" type="text/css">
+<link rel="stylesheet" href="/views/header.css" type="text/css">
+<link rel="stylesheet" href="/views/stylesheet/emojionearea.min.css">
+<link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <div class="preloader">
+    <div class="preloader__row">
+      <div class="preloader__item"></div>
+      <div class="preloader__item"></div>
+    </div>
+  </div>
+
+<div class="header">
+  <a href="/" class="logo" style="text-decoration: none;"><h1>My Website</h1></a>
+  <p>A website created by me.</p>
+</div>
+
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/about">About Us</a>
+  <a href="/contact" class="">Contact Us</a>
+</div>
+<div class="navbarMobile">
+  <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
+  <a href="/" class="left">Home</a>
+  <a href="/about" class="left">About us</a>
+  <a href="/contact" class="left">Contact us</a>
+</div>
+
+<div class="row">
+  
+  <div class="side">
+      <form class="formUpload" method="POST" enctype="multipart/form-data">
+      <div>
+        <input type="file" name="filedata" class="file" value="Choose photo" onchange="processSelectedFiles(this)"/><br><br>
+        <input type="submit" value="Update Photo" class="upload" />
+        <br />
+      </div>
+    </form>
+    
+    <form method="POST">
+    <% if(data[0].truth) { %>
+      <div class="icon-bar">
+      <a class="add"><img src="/image/add.png" alt="add"></a> 
+      <a class="edit"><img src="/image/edit.png" alt="edit"></a> 
+      </div>
+    <% } %>
+    <h2>About Me</h2>
+    <% if(data[0].photo) { %>
+    <div style="height:200px; margin-top: 20px;">
+      <img src="<%= '/uploads/' + data[0].photo[data[0].photo.length -1] %>" alt="" class="profilePhoto">
+    </div>  
+    <% } else { %>
+      <div style="height:200px; margin-top: 20px;">
+     <img src="/image/notFound.jpg" alt="" class="profilePhoto">
+      </div>
+     <% } %> 
+    
+
+    <h3 class="name">Name:  <%= data[0].name %></h3>
+    <input type="text" value="<%= data[0].name %>" class="changeName" hidden>
+    <h3  class="surname">Surname:  <%= data[0].surname %></h3>
+    <input type="text" value="<%= data[0].surname %>" class="changeSurname" hidden >
+    <h3 class="description">About myself:  <%= data[0].description %></h3>
+    <input type="text" value="<%= data[0].description %>" class="changeDes"  hidden>
+    <input type="submit" value="Submit" class="update" style="margin-top: 40px;float: right;" hidden>
+    <input type="button" value="Cancel" class="cancel" style="margin-top: 40px;float: left;" hidden>
+  </form>
+  </div>
+
+  <div class="main">
+    
+      <form method="POST" class="addForm" hidden>
+        <a class="close"><img src="/image/delete.png" alt="close" style="float: right;"></a>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="Your title..">
+        <label for="lname">Subtitle</label>
+        <input type="text" id="subtitle" name="subtitle" placeholder="Your subtitle..">
+        <label for="message">Share your news</label>
+        <textarea id="text" class="emoji" name="text" placeholder="Your news.." style="height:170px"></textarea>
+        <input type="submit" value="Submit" class="submit">
+        <br><br>  
+        <hr>
+      </form>
+      <% if(data[0].post) {%>
+      <% for(let i = data[0].post.length - 1; i>=0; i--) { %>
+        <br />
+        <h2 class="title"><%= data[0].post[i].title %></h2>
+        <h5 class="subtitle"><%= data[0].post[i].subtitle%>, <%= new Date(data[0].post[i].date).getDate() + '.' + new Date(data[0].post[i].date).getMonth() + '.'+ new Date(data[0].post[i].date).getFullYear()%></h5>
+        <br>
+        <p class="signature"> <%= data[0].post[i].text %> </p>
+        <br>
+        <hr>
+      <% } %>
+      <% } %>
+      <br>
+    <h2 class="title">Hello! We are glad to see you on our social network PIPS</h2>
+    <h5 class="subtitle">Congratulations, <%= new Date(data[0].signUpDate).getDate() + '.' + new Date(data[0].signUpDate).getMonth() + '.'+ new Date(data[0].signUpDate).getFullYear()%></h5>
+    <br>
+    <div class="block-img"><img src="/image/congratulations.jpg" class="img"></div>
+    <p class="signature"></p>
+    <br />
+    <hr />
+    <br />
+    <h2>First Note</h2>
+    <h5>Registration, <%= new Date(data[0].signUpDate).getDate() + '.' + new Date(data[0].signUpDate).getMonth() + '.'+ new Date(data[0].signUpDate).getFullYear()%></h5>
+    <br>
+    <p class="signature">Thank you for your registration on our social-network!</p>
+    <p class="signature">We are hope that you will enjoy!</p>
+</div>
+</div>
+<hr>
+<script src="/views/js/profile.js"></script>
+<script src="/views/js/updateProfile.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="/views/js/emojionearea.min.js"></script>
+<script>
+  $(document).ready(() => {
+  $('.emoji').emojioneArea({
+  pickerPosition: "bottom",
+  filtersPosition: "bottom",
+  tones: true,
+  inline: true,
+  hidePickerOnBlur: false,
+  unicode: true,
+}); 
+  })
+</script>
+</body>
+</html>

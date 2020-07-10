@@ -1,0 +1,84 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Style inputs */
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+/* Style the container/contact section */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+  padding: 20px;
+}
+.map {
+  float: left;
+  width: 40%;
+  height: 400px;
+  margin-top: 6px;
+  padding: 20px;
+}
+.mapMobile {
+  float: left;
+  width: 40%;
+  height: 400px;
+  margin-top: 6px;
+  padding: 20px;
+  display: none;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 500px) {
+  *{
+    overflow-x: hidden;
+  }
+  body{
+    height: 100%;
+    width:100%;
+  }
+  .burgerMenu {
+    margin-top: 8px;
+    margin-left: 10px;
+  }
+  .map {
+    display: none;
+  }
+  .mapMobile {
+    width: 100%;
+    display: block;
+  }
+}

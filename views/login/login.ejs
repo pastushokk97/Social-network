@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/views/login/login.css" type="text/css">
+    <link rel="stylesheet" href="/views/header.css" type="text/css">
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+</head>
+<body>
+      <div class="header">
+        <a href="/" class="logo"><h1>My Website</h1></a>
+        <p>A website created by me.</p>
+      </div>
+      <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About us</a>
+        <a href="/contact">Contact us</a>
+        <a href="/login" class="right">Log In</a>
+        <a href="/sign-up" class="right">Sign Up</a>
+      </div>
+      <div class="navbarMobile">
+        <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
+        <a href="/" class="left">Home</a>
+        <a href="/about" class="left">About us</a>
+        <a href="/contact" class="left">Contact us</a>
+        <a href="/login" class="left">Log In</a>
+        <a href="/sign-up" class="left">Sign Up</a>
+      </div>
+    <p class="new">Log In</p>
+        <form action="/login" method="POST" class="form">
+            <div class="attention" hidden>All fields must be completed.</div>
+            <div class="notFound" hidden>Account is not defined</div>
+            <p class="inscription">Email</p>
+            <input type="text" name="userName" placeholder="Name" class="name"/>
+            <p class="inscription">Password</p>
+            <input type="password" name="userPassword"  placeholder="Password" class="password" />
+            <img class = "showPassword" src="/image/see.png" alt="" role ="button" onclick="changeType('.password')">
+            <br />
+            <a href="/restore-password" class="forgot">Forgot your password?</a>
+            <br /><br />
+            <input type="submit" value="Log In" class="create" />
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+    <script src="/views/login/login.js"></script>
+</body>
+</html>

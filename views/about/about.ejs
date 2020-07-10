@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us</title>
+  <link rel="stylesheet" href="/views/header.css" type="text/css">
+  <link rel="stylesheet" href="/views/stylesheet/about.css" type="text/css">
+</head>
+<body>
+  <div class="header">
+    <a href="/" class="logo"><h1>My Website</h1></a>
+    <p>A website created by me.</p>
+  </div>
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About us</a>
+    <a href="/login" class="right">Log In</a>
+    <a href="/contact">Contact us</a>
+    <a href="/sign-up" class="right">Sign Up</a>
+  </div>
+  <div class="navbarMobile">
+    <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
+    <a href="/" class="left">Home</a>
+    <!-- <a href="">Link</a> -->
+    <a href="/about" class="left">About us</a>
+    <a href="/contact" class="left">Contact us</a>
+    <a href="/login" class="left">Log In</a>
+    <a href="/sign-up" class="left">Sign Up</a>
+  </div>
+
+  <div class="container">
+    <div style="text-align:center">
+      <h2>Contact Us</h2>
+      <p>Swing by for a cup of coffee, or leave us a message:</p>
+    </div>
+    <div class="row">
+      <div class="map"> </div>
+      <div class="column">
+        <p>
+          text
+        </p>
+      </div>
+    </div>
+    <div class="mapMobile"> </div>
+  </div>
+  <div style="background-color: #f2f2f2; width: 100%;height: 180px;"></div>
+    <script src="/views/js/about.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCupfgPoHTJHxkT6hYCTglwtuA9bvWn45k&callback=initMap">
+  </script>
+</body>
+</html>
