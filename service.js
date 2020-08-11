@@ -58,6 +58,7 @@ function addUser(data, userPassword) {
     }
   });
   data.password = password;
+  data.photo = ['notFound.jpg'];
   collection.insertOne(data,(err,result) => {
     if (err) { 
       resolve('Error');
@@ -214,6 +215,37 @@ function updatePassword(id,password) {
   })
 }
 
+async function findPeople(name) {
+  const mongoClient = new MongoClient('mongodb+srv://Igor:*=$Pf-N5H89QJE.@users-e9wlw.gcp.mongodb.net/pips?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true,  });
+  const regular = new RegExp(name);
+  const result = [];
+
+    return new Promise(async(resolve,resject) => {
+      await mongoClient.connect(async(err,client) => {
+        if(err) throw err;
+    
+        const db = client.db('pips');
+        const collection = db.collection('users');
+
+        const data = await collection.find({'name':{'$regex':regular}}).toArray();
+        client.close();
+        console.log(data);
+        if(data.length === 0) resolve('Users were not found');
+        for (let i = 0; i < data.length; i++) {
+          result.push({name:data[i].name,
+                      id:data[i]._id,
+                      photo_url: data[i].photo[data[i].photo.length - 1],
+                      description:data[i].description
+          })
+        }
+      
+      resolve(result);
+      });
+  });
+}
+//console.time('service');
+//findPeople('Igor');
+//console.timeEnd('service');
 module.exports = {
   addUser,
   sendEmail,
@@ -223,5 +255,6 @@ module.exports = {
   uploadPhoto,
   sendLink,
   updatePassword,
+  findPeople,
 };
 

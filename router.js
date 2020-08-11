@@ -3,10 +3,10 @@ const router = express.Router();
 const jsonParser = express.json();
 const multer = require('multer');
 const passport = require('passport');
-const { addUser,sendLink, sendEmail, uploadPhoto, updateProfile,getProfile,uploadNote,updatePassword } = require('./service');
+const { addUser,sendLink, sendEmail, uploadPhoto, updateProfile,getProfile,uploadNote,updatePassword,findPeople } = require('./service');
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) =>{
-      cb(null, 'views/uploads');
+      cb(null, 'uploads');
   },
   filename: (req, file, cb) =>{
       cb(null, file.originalname);
@@ -161,7 +161,7 @@ router.post('/profile/:id/update',jsonParser,auth,(req,res) => {
   .then(res.json('ok')); 
 });
 
-router.post('/profile/:id/upload',function (req, res) {
+router.post('/profile/:id/upload',(req, res) => {
   const filedata = req.file;
   if(!filedata) res.status(404);
   uploadPhoto(req.params['id'],filedata)
@@ -170,5 +170,17 @@ router.post('/profile/:id/upload',function (req, res) {
     else res.status(405)
   });
 });
+
+router.post('/profile/:id/findPeople',jsonParser,(req,res) => {
+  
+  if (req.body.name === '') return res.json('Enter a name')
+console.time('router');
+  findPeople(req.body.name)
+  .then(result => {
+    res.json(result);
+  })
+
+  console.timeEnd('router');
+})
 
 module.exports = router;

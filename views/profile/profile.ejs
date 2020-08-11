@@ -27,16 +27,48 @@
   <a href="/">Home</a>
   <a href="/about">About Us</a>
   <a href="/contact" class="">Contact Us</a>
+    <form class="findPeople" onsubmit="return false;">
+      <input type="text" class="findField" placeholder="Search people here...">
+      <button type="button" class="findButton"><img src="/image/find.png" alt="find"></button>
+    </form>
 </div>
+
 <div class="navbarMobile">
   <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
   <a href="/" class="left">Home</a>
   <a href="/about" class="left">About us</a>
   <a href="/contact" class="left">Contact us</a>
+  <a href="#" class="left mobile-search">Search friends</a>
+</div>
+
+<div class="search-menu-mobile">
+  <form onsubmit="return false">
+    <input type="text" placeholder="Search people here..." class="find-mobile-input" style="margin: 0;">
+  </form>
+  <ul class="resultMobileFind">
+
+<!--     <li class="personMobile">
+      <a href="http://localhost:8080/profile/5ee75352b6368600128377ce" class="avatarMobile">
+          <img src="/uploads/Rome.jpeg" alt="" class="photoAvatarMobile">
+        <div class="infoMobile">
+          <p class="nameAvatarMobile">Igor</p>
+          <p class="descriptionAvatarMobile">I am a web-developer</p>
+        </div>
+        </a>
+    </li>
+    <li class="personMobile">
+      <a href="http://localhost:8080/profile/5ee75352b6368600128377ce" class="avatarMobile">
+          <img src="/uploads/notFound.jpg" alt="" class="photoAvatarMobile">
+          <div class="infoMobile">
+          <p class="nameAvatarMobile">test</p>
+          <p class="descriptionAvatarMobile">test</p>
+        </div>
+      </a>
+    </li> -->
+  </ul>
 </div>
 
 <div class="row">
-  
   <div class="side">
       <form class="formUpload" method="POST" enctype="multipart/form-data">
       <div>
@@ -77,7 +109,9 @@
   </div>
 
   <div class="main">
-    
+    <div>
+      <ul class="resultFind"></ul>
+    </div>  
       <form method="POST" class="addForm" hidden>
         <a class="close"><img src="/image/delete.png" alt="close" style="float: right;"></a>
         <label for="title">Title</label>

@@ -169,6 +169,103 @@ body {
   flex-wrap: wrap;
 }
 
+.search-menu-mobile {
+  width: 100%;
+  height: 100%;
+  color: #337ab7;
+}
+
+
+.resultFind {
+  border: 2px solid black;
+  width: 30%;
+  float: right;
+  height: 130px;
+  display: none;
+  margin-top: -20px;
+  background-color: #f1f1f1;
+}
+
+.person {
+  list-style-type: none;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.avatar {
+  text-decoration: none;
+}
+
+.photoAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  float: left;
+  margin-left: -40px;
+}
+
+.nameAvatar {
+  font-size: large;
+  font-weight: 500;
+  color: black;
+  padding-left: 15px;
+}
+
+.descriptionAvatar {
+  font-size: smaller;
+  color: rgb(145, 145, 145);
+  padding-left: 15px;
+}
+
+.personMobile {
+  margin-bottom: 10px;
+}
+
+.search-menu-mobile {
+  display: none;
+}
+
+.resultingSearch {
+  font-size: x-large;
+  margin-left: 25%;
+  color: black;
+  margin-bottom: 15px;
+}
+
+.resultMobileFind {
+  display: none;
+  margin-left: -7%;
+  margin-top: 10px;
+}
+
+.infoMobile {
+  display: inline-grid;
+  padding: 10px;
+}
+
+.avatarMobile {
+  text-decoration-line: none;
+}
+
+.photoAvatarMobile {
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.nameAvatarMobile {
+  color: black;
+  font-size: larger;
+  font-weight: 600;
+}
+
+.descriptionAvatarMobile {
+  color: black;
+  font-size: larger;
+ }
+
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
@@ -190,7 +287,7 @@ body {
 
 .icon-bar a {
   float: left;
-  width: 20%;
+  width: 21%;
   text-align: center;
   padding: 12px 0;
   transition: all 0.3s ease;
