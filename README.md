@@ -9,7 +9,6 @@ You can share it with me by email "pastushokk97@gmail.com"
 or in menu "Contact Us" on this site
 
 Here is my own idea for development that project:
-
 1.Followers
 2.Likes
 3.Comments
