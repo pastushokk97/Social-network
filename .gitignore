@@ -5,4 +5,3 @@ package-lock.json
 /**/.vscode/
 **/.DS_Store
 /**/node_modules/
-cloud_sql_proxy
