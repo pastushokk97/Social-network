@@ -33,6 +33,10 @@ input[type=submit]:hover {
 }
 
 /* Create two columns that float next to eachother */
+.text {
+  text-align: center;
+  margin-left: 45%;
+}
 .column {
   float: left;
   width: 50%;
@@ -80,5 +84,9 @@ input[type=submit]:hover {
   .mapMobile {
     width: 100%;
     display: block;
+  }
+  .text {
+    text-align: center;
+    margin: 0;
   }
 }

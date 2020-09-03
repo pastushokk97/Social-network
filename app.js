@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
-const routes = require('./router');
+const routes = require('./src/routes/router');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
-require('./passport');
+require('./src/authorization/passport');
 
 app.use(cookieParser());
 app.use(

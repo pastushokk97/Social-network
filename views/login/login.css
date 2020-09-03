@@ -1,99 +1,118 @@
 * {
-  overflow: scroll;
-}
-body {
-  background-color: rgb(240,240,240);
-  width: 100%;
-  margin: 0px;
-  
-}
-.new {
-  text-align: center;
-  font-size: 40px;
-  font-weight: bold;
-  margin-top: 120px;
-}
-.attention {
-  text-align: center;
-  width: 400px;
-  height: 30px;
-  margin-left: 525px;
-  background: rgb(233, 93, 93);
-  border: none;
-  font-size: 25px;
-}
-.notFound {
-  text-align: center;
-  width: 400px;
-  height: 30px;
-  margin-left: 525px;
-  background: rgb(233, 93, 93);
-  border: none;
-  font-size: 25px;
-}
-input::placeholder {
-  font-size: 15px;
-}
-.name:focus{outline:0}
-.name {
-  width: 400px;
-  height: 30px;
-  margin-left: 525px;
-  background: white;
-  font-size: 15px;
-  border: none;
-  margin-top: 3px;
-}
-.email {
-  width: 400px;
-  height: 30px;
-  margin-left: 525px;
-  background: white;
-  font-size: 15px;
-}
-.showPassword:focus{outline:0}
-.showPassword {
-  margin-left: -40px;
-  margin-bottom: -7px;
-  background: white;;
-  border: none;
-  font-size: 15px;
-}
-.password:focus{outline:0}
-.password {
-  margin-top: 3px;
-  width: 400px;
-  height: 30px;
-  margin-left: 525px;
-  background: white;
-  font-size: 15px;
-  border: none;
-  margin-bottom: 5px;
-}
-.forgot {
-  margin-left: 37%;
-  margin-bottom: 50px;
-}
-.create {
-  width: 130px;
-  height: 35px;
-  margin-left: 665px;
-  background-color: rgb(81, 81, 250);
-  color: white;
-  font-size: 15px;
-  margin-bottom: 100px;
-  border: none;
-}
-.inscription {
-  margin-left: 525px;
-  margin-bottom: auto;
+  box-sizing: border-box;
+  margin: 0;
 }
 
-@media screen and (max-width: 600px) {
-  .column, input[type=submit] {
-    width: 80%;
-    margin-top: 0;
+body {
+  background-color: rgb(240,240,240);
+}
+
+form {
+  margin-left: 33%;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  width: 31.5%;
+  margin-left: 35%;
+  display: none;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+/* Full-width input fields */
+  input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 18px;
+  display: inline-block;
+  border: none;
+  background-color: white;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.label {
+  margin-left: 18px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.signupbtn {
+  float: left;
+  width: 100%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+  width: 50%;
+}
+
+.clearfix {
+  width: 100%;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 500px) {
+  .cancelbtn, .signupbtn {
+    width: 100%;
   }
+}
+
+
+
+
+@media screen and (max-width: 500px) {
   *{
     overflow-x: hidden;
   }
@@ -105,23 +124,30 @@ input::placeholder {
     margin-top: 8px;
     margin-left: 10px;
   }
-  .name {
-    width: 80%;
-    margin-left: 10%;
+  form {
+    margin: 0;
+    width: 190%;
   }
-  .password {
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
+} 
+
+@media screen and (max-width: 1000px) {
+  *{
+    overflow-x: hidden;
   }
-  .inscription {
-    margin-left: 10%;
+  body{
+    height: 100%;
+    width:100%;
   }
-  .forgot {
-    margin-top: 10px;
-    margin-left: 10%;
+  .burgerMenu {
+    margin-top: 8px;
+    margin-left: 10px;
   }
-  .create {
-    margin-left: 10%;
+  .alert {
+    margin: 0;
+    width: 100%;
   }
-}
+  form {
+    margin: 0;
+    width: 190%;
+  }
+} 

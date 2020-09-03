@@ -9,27 +9,8 @@
 </head>
 <body>
 
-  <div class="header">
-    <a href="/" class="logo"><h1>My Website</h1></a>
-    <p>A website created by me.</p>
-  </div>
-  <div class="navbar">
-    <a href="/">Home</a>
-    <!-- <a href="">Link</a> -->
-    <a href="/about">About us</a>
-    <a href="/contact">Contact us</a>
-    <a href="/login" class="right">Log In</a>
-    <a href="/sign-up" class="right">Sign Up</a>
-  </div>
-  <div class="navbarMobile">
-    <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
-    <a href="/" class="left">Home</a>
-    <!-- <a href="">Link</a> -->
-    <a href="/about" class="left">About us</a>
-    <a href="/contact" class="left">Contact us</a>
-    <a href="/login" class="left">Log In</a>
-    <a href="/sign-up" class="left">Sign Up</a>
-  </div>
+  <%- include('../navbar') %>
+
 <div class="container">
   <div style="text-align:center">
     <h2>Contact Us</h2>
@@ -65,5 +46,6 @@
   </div>
 </div>
 <script src="/views/js/contact.js"></script>
+<script src="/views/js/menuMobile.js"></script>
 </body>
 </html>

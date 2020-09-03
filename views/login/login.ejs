@@ -9,43 +9,38 @@
     <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
 </head>
 <body>
-      <div class="header">
-        <a href="/" class="logo"><h1>My Website</h1></a>
-        <p>A website created by me.</p>
+
+  <%- include('../navbar') %>
+
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Warning!</strong>Please fill all the gaps.
+  </div>
+
+  <form>
+    <div class="container">
+      <h1 style="text-align: center;">Login</h1>
+      <p style="text-align: center;">Please fill in this form to login.</p>
+      <hr>
+
+      <label for="email" class="label"><b>Email</b></label>
+      <input type="text" class="email" placeholder="Enter Email" name="email" required>
+      <br>
+      <label for="password" class="label"><b>Password</b></label>
+      <input type="password" class="password" placeholder="Enter Password" name="psw" required>
+      <br>
+        <a href="/restore-password" style=" text-decoration: none; color: rgb(69, 69, 202); margin-left: 18px;">Forgot Password?</a>
+      <label class="label" style="float: right;">
+        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+      </label>
+  
+      <div class="clearfix label">
+        <button type="submit" class="loginbtn">Login</button>
       </div>
-      <div class="navbar">
-        <a href="/">Home</a>
-        <a href="/about">About us</a>
-        <a href="/contact">Contact us</a>
-        <a href="/login" class="right">Log In</a>
-        <a href="/sign-up" class="right">Sign Up</a>
-      </div>
-      <div class="navbarMobile">
-        <img src="/image/menu.png" class="burgerMenu" alt="" onclick="menu()">
-        <a href="/" class="left">Home</a>
-        <a href="/about" class="left">About us</a>
-        <a href="/contact" class="left">Contact us</a>
-        <a href="/login" class="left">Log In</a>
-        <a href="/sign-up" class="left">Sign Up</a>
-      </div>
-    <p class="new">Log In</p>
-        <form action="/login" method="POST" class="form">
-            <div class="attention" hidden>All fields must be completed.</div>
-            <div class="notFound" hidden>Account is not defined</div>
-            <p class="inscription">Email</p>
-            <input type="text" name="userName" placeholder="Name" class="name"/>
-            <p class="inscription">Password</p>
-            <input type="password" name="userPassword"  placeholder="Password" class="password" />
-            <img class = "showPassword" src="/image/see.png" alt="" role ="button" onclick="changeType('.password')">
-            <br />
-            <a href="/restore-password" class="forgot">Forgot your password?</a>
-            <br /><br />
-            <input type="submit" value="Log In" class="create" />
-        </form>
-        <br>
-        <br>
-        <br>
-        <br>
-    <script src="/views/login/login.js"></script>
+    </div>
+  </form>
+
+<script src="/views/login/login.js"></script>
+<script src="/views/js/menuMobile.js"></script>
 </body>
 </html>

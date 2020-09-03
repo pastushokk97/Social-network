@@ -3,7 +3,7 @@ const router = express.Router();
 const jsonParser = express.json();
 const multer = require('multer');
 const passport = require('passport');
-const { addUser,sendLink, sendEmail, uploadPhoto, updateProfile,getProfile,uploadNote,updatePassword,findPeople } = require('./service');
+const { addUser,sendLink, sendEmail, uploadPhoto, updateProfile,getProfile,uploadNote,updatePassword,checkCode,findPeople } = require('../service');
 const storageConfig = multer.diskStorage({
   destination: (req, file, cb) =>{
       cb(null, 'uploads');
@@ -18,15 +18,11 @@ const auth = (req,res,next) => {
   if(req.isAuthenticated()) {
     next();
   } else {
-    return res.redirect('/');
+    return res.redirect('/login');
   }
 }
 router.get('/weather',jsonParser,(req,res) => {
   res.render(__dirname + '/views/weather/weather.ejs');
-});
-
-router.get('/',jsonParser,(req,res) => {
-  res.render(__dirname + '/views/home/home.ejs');
 });
 
 router.get('/sign-up', jsonParser, function (request, response) {
@@ -45,7 +41,7 @@ router.get('/restore-password',jsonParser,(requset,response) => {
 });
 
 router.get('/restore-password/:id',jsonParser,(requset,response) => {
-  response.render(__dirname + '/views/updatePassword/updatePassword.ejs');
+  response.render(__dirname + '/views/restorePassword/restorePassword.ejs');
 });
 
 router.get('/about',jsonParser,(req,res) => {
@@ -80,20 +76,26 @@ router.post('/contact',jsonParser, (request,response) => {
     'subject':request.body.subject,
     'text':request.body.text,
   };
+
   sendEmail(letter)
-  .then(response.json(true));
+  .then((result) => {
+    response.json(result)
+  });
 });
  
 
 router.post('/sign-up',jsonParser,(req,res) => {
  
    const user = {
-    'name':req.body.userName,
-    'email':req.body.userEmail,
-    'signUpDate':req.body.signUpDate,
+    name:req.body.username,
+    surname: req.body.surname,
+    photo:['notFound.jpg'],
+    email:req.body.email,
+    password:req.body.password,
+    signUpDate:req.body.signUpDate,
   };
-  
-  addUser(user,req.body.userPassword)
+
+  addUser(user)
   .then(result => {
     if(typeof(result) === 'string') {
       res.status(406).json(result);
@@ -103,25 +105,32 @@ router.post('/sign-up',jsonParser,(req,res) => {
 });
 
 router.post('/restore-password',jsonParser,(req,res) => {
-  
+  console.log(req.body.email);
   sendLink(req.body.email)
   .then(result => {
-    if(result === 'User was not found') res.json('User was not found');
+    if(result === 'User was not found') res.json(result);
     else res.json('Email was sent');
   })
 })
 
 router.post('/restore-password/:id',jsonParser,async (req,res) => {
-  updatePassword(req.params['id'],req.body.password)
-  .then(result => {
-    if(result === 'Password was updated') res.json('Password was updated');
-    else res.json('User was not found');
-  });
+  if(req.body.code) {
+    checkCode(req.params['id'],req.body.code)
+    .then(result => {
+      res.json(result);
+    })
+  } else {
+    updatePassword(req.params['id'],req.body.password)
+    .then(result => {
+      if(result === 'Password was updated') res.json('Password was updated');
+      else res.json('User was not found');
+    });
+  }
 });
+
 router.post('/login',jsonParser,function(req,res,next) {
-  
+
   passport.authenticate('local', function(err, user) {
-    console.log(user,'user!')
     if (err) { 
       return next(err); 
     }
@@ -135,6 +144,7 @@ router.post('/login',jsonParser,function(req,res,next) {
         redirect:`/profile/${user._id}`});  
     });
   })(req, res, next);
+
 });
 
 router.post('/profile/:id/add',jsonParser,auth,async(req,res) => {

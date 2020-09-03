@@ -1,0 +1,8 @@
+yarn.lock
+package-lock.json
+/**/.env
+/**/.idea/
+/**/.vscode/
+**/.DS_Store
+/**/node_modules/
+cloud_sql_proxy

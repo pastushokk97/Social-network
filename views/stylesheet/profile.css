@@ -217,6 +217,10 @@ body {
   padding-left: 15px;
 }
 
+.changeInformation {
+  display: none;
+}
+
 .personMobile {
   margin-bottom: 10px;
 }
@@ -343,6 +347,48 @@ input[type=button] {
 
 input[type=button]:hover {
   background-color: #e20000;
+}
+
+.addPost {
+  padding: 12px 20px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.addPost:hover {background-color: #3e8e41}
+
+.btn {
+  box-sizing: border-box;
+  border-radius: 0.6em;
+  background-position: 100%;
+  background-size: 400%;
+  -webkit-transition: background 300ms ease-in-out;
+  transition: background 300ms ease-in-out;
+}
+.btn:hover, .btn:focus {
+  background-position: 0;
+}
+
+.btn-red {
+  border-color: #e20000;
+  background-image: linear-gradient(45deg, #b80202 50%, transparent 50%);
+}
+
+.btn-green {
+  background-image: linear-gradient(45deg, #3e8e41 50%, transparent 50%);
+}
+
+.addPost:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 /* Style the container/contact section */

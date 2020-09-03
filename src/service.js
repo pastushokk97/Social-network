@@ -19,56 +19,55 @@ function sendEmail(data) {
   return new Promise(async(resolve,reject) => {
 
   mailOptions.to = 'pastushokk97@gmail.com';
-  mailOptions.subject = 'Claim from a client';
-  mailOptions.text = `Claim from ${data.email}`;
+  mailOptions.subject = 'Mail from a client';
+  mailOptions.text = `Mail from ${data.email}`;
   mailOptions.html = `
-    <h3>Claim from ${data.email} and name is ${data.firstName}${data.lastName}</h3>
+    <h3>Mail from ${data.email} and name is ${data.firstName}${data.lastName}</h3>
     <h3>Subject:${data.subject}</h3>
     <h4>Text from client:${data.text}</h4>
   `;
-  const send =  await transporter.sendMail(mailOptions, function (err,info) {
-    if(err) {
-      throw err;
-    }
+
+  await transporter.sendMail(mailOptions, function (err,info) {
+      if(err) {
+        throw err;
+      }
+      resolve(info.accepted);
+    });
   });
-  resolve(send);
-});
 };
 
-function addUser(data, userPassword) {
-  let password;
+function addUser(data) {
   const mongoClient = new MongoClient('mongodb+srv://Igor:*=$Pf-N5H89QJE.@users-e9wlw.gcp.mongodb.net/pips?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true,  });
   
-
-  bcrypt.hash(userPassword, 10, function(err, hash) {
-    password = hash;
+  bcrypt.hash(data.password, 10, function(err, hash) {
+    if(err) throw err;
+    data.password = hash;
   });
+
   return new Promise(async(resolve,reject) =>  {
  
-  await mongoClient.connect((err,client) => {
-    if (err) throw err;
+    await mongoClient.connect((err,client) => {
+      if (err) throw err;
 
-  const db = client.db('pips');
-  const collection = db.collection('users');
-  collection.find({'email':data.email}).toArray((err,results) => {
-    if(err) throw err;
+    const db = client.db('pips');
+    const collection = db.collection('users');
+    collection.find({'email':data.email}).toArray((err,results) => {
+      if(err) throw err;
 
-    if(results.length >=1 ) {
-      resolve('This email is already taken');
-    }
-  });
-  data.password = password;
-  data.photo = ['notFound.jpg'];
-  collection.insertOne(data,(err,result) => {
-    if (err) { 
-      resolve('Error');
-      throw err;
-    }
-    client.close();
-    resolve(data);
+      if(results.length >=1 ) {
+        resolve('This email is already taken');
+      }
     });
-  });  
-});
+
+    collection.insertOne(data,(err,result) => {
+      if (err) { 
+        throw err;
+      }
+      client.close();
+      resolve(data);
+      });
+    });  
+  });
 } 
 
 function getProfile(id) {
@@ -150,7 +149,7 @@ function uploadPhoto(id,file) {
   })
 }
 
-function sendLink (email){
+function sendLink(email) {
   const mongoClient = new MongoClient('mongodb+srv://Igor:*=$Pf-N5H89QJE.@users-e9wlw.gcp.mongodb.net/pips?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true,  });
 
   return new Promise(async(resolve,reject) => {
@@ -160,37 +159,72 @@ function sendLink (email){
     const db = client.db('pips');
     const collection = db.collection('users');
 
+    const restoreCode = Math.floor(Math.random() * 1000000)
+
     await collection.findOne({'email':email},async(err,user) => {
       if(err) throw err;
       if(!user) resolve('User was not found');
-      if(user) {
+
+        collection.updateOne({'email':email},{$set:{'restoreCode':restoreCode}});
+
         mailOptions.to = email;
         mailOptions.subject = 'Restore your password';
-        mailOptions.html = 
-        `
+        mailOptions.html = `
           <h3>If you want restore your password please follow this link https://sonic-momentum-279720.oa.r.appspot.com/restore-password/${user._id}</h3>
+          <h3>Here is your code ${restoreCode} for restore password, this code can be used within five minutes</h3>
           <h3>If that wasn't you, just ignore</h3>
           <br />
           <br />
           <h4>Our team PIPS</h4>
-          <h4>The best wishes to you</h4>
-        `;
-        const send =  await transporter.sendMail(mailOptions, function (err,info) {
+          <h4>The best wishes to you!</h4>`;
+
+        await transporter.sendMail(mailOptions, function (err,info) {
           if(err) {
             throw err;
           }
+
+          setTimeout(() => {
+            collection.updateOne({'email':email},{$set:{'restoreCode':''}});
+          },1000 * 60 * 3)
+
           resolve('Email was sent');
         });
-      }
-    });
+      });
     })
   })
 }
 
+sendLink('ihor.pastushenko@nure.ua')
+.then(res => console.log(res));
+
+function checkCode(id,code) {
+  return new Promise(async(resolve,reject) => {
+    const mongoClient = new MongoClient('mongodb+srv://Igor:*=$Pf-N5H89QJE.@users-e9wlw.gcp.mongodb.net/pips?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true,  });
+    
+    if(id.length != 24) resolve('User wasn\'t found');
+
+    const objectId = new ObjectId(id);
+    await mongoClient.connect(async(err,client) => {
+      if(err) throw err;
+    
+      const db = client.db('pips');
+      const collection = db.collection('users');
+      await collection.findOne({'_id':objectId},(err,user) => {
+      if(err) throw err;
+      if(!user) resolve('User wasn\'t found')
+
+      if(user.restoreCode === '') resolve('Time is over')
+
+      user.restoreCode == code ? resolve('Code is right') : resolve('Code is wrong');
+      })
+    });
+  })
+};
+
+
 function updatePassword(id,password) {
-  let passwordHash;
   bcrypt.hash(password, 10, function(err, hash) {
-    passwordHash = hash;
+    password = hash;
   });
   const mongoClient = new MongoClient('mongodb+srv://Igor:*=$Pf-N5H89QJE.@users-e9wlw.gcp.mongodb.net/pips?retryWrites=true&w=majority',{ useUnifiedTopology: true, useNewUrlParser: true,  });
 
@@ -200,17 +234,15 @@ function updatePassword(id,password) {
     await mongoClient.connect(async(err,client) => {
       if(err) throw err;
     
-    const db = client.db('pips');
-    const collection = db.collection('users');
-    await collection.findOne({'_id':objectId},(err,user) => {
+      const db = client.db('pips');
+      const collection = db.collection('users');
+      await collection.findOne({'_id':objectId},(err,user) => {
       if(err) throw err;
       if(!user) resolve('User was not found');
-      if (user) {
-        console.log(password);
-      collection.updateOne({'_id':objectId},{$set:{password:passwordHash}});
+      
+      collection.updateOne({'_id':objectId},{$set:{password:password}});
       resolve('Password was updated');
-      }
-    });
+      });
     })
   })
 }
@@ -243,9 +275,7 @@ async function findPeople(name) {
       });
   });
 }
-//console.time('service');
-//findPeople('Igor');
-//console.timeEnd('service');
+
 module.exports = {
   addUser,
   sendEmail,
@@ -255,6 +285,7 @@ module.exports = {
   uploadPhoto,
   sendLink,
   updatePassword,
+  checkCode,
   findPeople,
 };
 
